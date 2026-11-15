@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { usesVercelAuth } from "@/lib/runtime";
 import { startAdminSession } from "@/lib/admin-session";
+import styles from "./sign-in.module.css";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -31,15 +32,38 @@ export default async function SignIn({ searchParams }: {
 
   const { failed, returnTo } = await searchParams;
   return (
-    <main className="studio">
-      <h1>Studio sign-in</h1>
-      <form action={signIn}>
-        <input type="hidden" name="returnTo" value={destination(returnTo)} />
-        <label htmlFor="password">Admin password</label>{" "}
-        <input id="password" name="password" type="password" autoComplete="current-password" required />{" "}
-        <button className="outline" type="submit">Sign in</button>
-        {failed === "1" && <p role="alert">Sign-in failed.</p>}
-      </form>
+    <main className={styles.page}>
+      <div className={styles.shell}>
+        <div className={styles.art}>
+          <a href="/" className={styles.brand}>
+            <img src="/assets/logo.svg" alt="" width="42" height="42" />
+            Katha &amp; Kahini
+          </a>
+        </div>
+        <section className={styles.panel} aria-labelledby="sign-in-title">
+          <div className={styles.content}>
+            <a href="/" className={styles.back}>← Back to website</a>
+            <h1 id="sign-in-title" className={styles.title}>Studio sign-in</h1>
+            <p className={styles.description}>Access audience analytics and the publishing desk.</p>
+            <form action={signIn} className={styles.form}>
+              <input type="hidden" name="returnTo" value={destination(returnTo)} />
+              <label htmlFor="password">Admin password</label>
+              <input
+                className={styles.password}
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                aria-invalid={failed === "1" || undefined}
+                aria-describedby={failed === "1" ? "sign-in-error" : undefined}
+                required
+              />
+              {failed === "1" && <p id="sign-in-error" className={styles.error} role="alert">Couldn’t sign in. Check your password and try again.</p>}
+              <button className={styles.submit} type="submit">Sign in <span aria-hidden="true">→</span></button>
+            </form>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

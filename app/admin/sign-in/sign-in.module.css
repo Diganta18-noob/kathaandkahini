@@ -1,0 +1,93 @@
+.page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 64px);
+  background: radial-gradient(ellipse at 25% 0%, #34241a, var(--ink) 62%);
+}
+
+.shell {
+  width: min(100%, 1080px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  border: 1px solid #735339;
+  border-radius: 20px;
+  box-shadow: 0 24px 80px #09060399;
+}
+
+.art {
+  min-height: 560px;
+  padding: clamp(20px, 4vw, 42px);
+  background:
+    linear-gradient(180deg, #160f0de8, #1b120e18 40%, #1b120e77),
+    #8c603c url('/assets/battlefield.webp') 60% center / cover no-repeat;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 600 clamp(20px, 3vw, 28px)/1.1 Georgia, serif;
+}
+
+.brand img { flex: none; }
+
+.panel {
+  display: grid;
+  align-items: center;
+  padding: clamp(24px, 5vw, 64px);
+  background: #211813;
+}
+
+.content { width: 100%; max-width: 380px; margin-inline: auto; }
+.back { color: var(--gold); font-size: 14px; }
+.back:hover { text-decoration: underline; }
+.title { margin: 28px 0 10px; font-size: clamp(36px, 5vw, 60px); letter-spacing: -.045em; }
+.description { margin: 0; color: var(--muted); }
+
+.form {
+  display: grid;
+  gap: 10px;
+  margin-top: 32px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.password {
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 14px;
+  border: 1px solid #967357;
+  border-radius: 8px;
+  background: #17110e;
+  color: var(--paper);
+  font: 400 16px/1.4 system-ui, sans-serif;
+}
+
+.password:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.password[aria-invalid='true'] { border-color: #ffab98; }
+.error { margin: 0; color: #ffb9aa; }
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  margin-top: 8px;
+  padding-inline: 16px;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  background: var(--gold);
+  color: #27170d;
+  font-weight: 750;
+}
+
+.submit:hover { background: #ffdaaa; }
+
+@media (max-width: 700px) {
+  .shell { grid-template-columns: minmax(0, 1fr); max-width: 500px; }
+  .art { min-height: 144px; background-position: center, center 54%; }
+  .panel { padding-block: 28px 36px; }
+  .title { margin-top: 20px; }
+}
