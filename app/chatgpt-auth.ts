@@ -1,5 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { usesVercelAuth } from "@/lib/runtime";
+import { getAdminSessionEmail } from "@/lib/admin-session";
 
 export type ChatGPTUser = {
   userId: string;
@@ -19,6 +21,11 @@ const SIGN_OUT_PATH = "/signout-with-chatgpt";
 const CALLBACK_PATH = "/callback";
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
+  if (usesVercelAuth) {
+    const email = await getAdminSessionEmail();
+    return email ? { userId: email, email, displayName: email, fullName: null } : null;
+  }
+
   const requestHeaders = await headers();
   const userId = requestHeaders.get(USER_ID_HEADER);
   const email = requestHeaders.get(USER_EMAIL_HEADER);
@@ -45,6 +52,7 @@ export async function requireChatGPTUser(
   const user = await getChatGPTUser();
   if (user) return user;
 
+  if (usesVercelAuth) redirect(`/admin/sign-in?returnTo=${encodeURIComponent(returnTo)}`);
   redirect(chatGPTSignInPath(returnTo));
 }
 

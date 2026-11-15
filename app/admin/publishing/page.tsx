@@ -1,4 +1,4 @@
-import { env } from 'cloudflare:workers';
+import { env } from '@/lib/runtime';
 import { notFound } from 'next/navigation';
 import { requireChatGPTUser } from '../../chatgpt-auth';
 import PublishingDesk from './publishing-desk';

@@ -1,6 +1,6 @@
-import { env } from 'cloudflare:workers';
+import { env, usesVercelAuth } from '@/lib/runtime';
 import { notFound } from 'next/navigation';
-import { getChatGPTUser } from '../chatgpt-auth';
+import { getChatGPTUser, requireChatGPTUser } from '../chatgpt-auth';
 import { episodes } from '../episodes';
 
 export const dynamic = 'force-dynamic';
@@ -12,7 +12,7 @@ type EpisodeRow = { episode: string; starts: number; finishes: number; totalProg
 type DayRow = { day: string; starts: number };
 
 export default async function Admin({ searchParams }: { searchParams: Promise<{ days?: string }> }) {
-  const user = await getChatGPTUser();
+  const user = usesVercelAuth ? await requireChatGPTUser('/admin') : await getChatGPTUser();
   if (!user || !env.ADMIN_EMAIL || user.email.toLowerCase() !== env.ADMIN_EMAIL.toLowerCase()) notFound();
 
   const requested = Number((await searchParams).days);

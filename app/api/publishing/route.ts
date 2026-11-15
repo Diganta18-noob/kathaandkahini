@@ -1,4 +1,4 @@
-import { env } from 'cloudflare:workers';
+import { env } from '@/lib/runtime';
 import { getChatGPTUser } from '../../chatgpt-auth';
 
 const allowedKey = /^(3|4|5|6|chhath):(Instagram|Facebook|YouTube)$/;
