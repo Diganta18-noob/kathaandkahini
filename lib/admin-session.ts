@@ -3,10 +3,11 @@ import { cookies } from "next/headers";
 
 const cookieName = "kahini-admin";
 const lifetime = 8 * 60 * 60;
+const minimumPasswordLength = 12;
 
 function settings() {
   const { ADMIN_EMAIL: email, ADMIN_PASSWORD: password } = process.env;
-  return email && password && password.length >= 32 ? { email, password } : null;
+  return email && password && password.length >= minimumPasswordLength ? { email, password } : null;
 }
 
 function digest(value: string) {
