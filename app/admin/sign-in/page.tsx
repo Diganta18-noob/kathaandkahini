@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { usesVercelAuth } from "@/lib/runtime";
 import { startAdminSession } from "@/lib/admin-session";
 import styles from "./sign-in.module.css";
+import PasswordField from "./password-field";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -48,16 +49,7 @@ export default async function SignIn({ searchParams }: {
             <form action={signIn} className={styles.form}>
               <input type="hidden" name="returnTo" value={destination(returnTo)} />
               <label htmlFor="password">Admin password</label>
-              <input
-                className={styles.password}
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                aria-invalid={failed === "1" || undefined}
-                aria-describedby={failed === "1" ? "sign-in-error" : undefined}
-                required
-              />
+              <PasswordField invalid={failed === "1"} />
               {failed === "1" && <p id="sign-in-error" className={styles.error} role="alert">Couldn’t sign in. Check your password and try again.</p>}
               <button className={styles.submit} type="submit">Sign in <span aria-hidden="true">→</span></button>
             </form>

@@ -54,10 +54,12 @@
   font-weight: 600;
 }
 
+.passwordField { position: relative; }
+
 .password {
   width: 100%;
   min-height: 52px;
-  padding: 10px 14px;
+  padding: 10px 76px 10px 14px;
   border: 1px solid #967357;
   border-radius: 8px;
   background: #17110e;
@@ -66,6 +68,17 @@
 }
 
 .password:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.visibility {
+  position: absolute;
+  inset-block: 4px;
+  inset-inline-end: 4px;
+  min-width: 62px;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+}
+.visibility:hover { background: #34241a; }
+.visibility:focus-visible { outline-offset: -2px; }
 .password[aria-invalid='true'] { border-color: #ffab98; }
 .error { margin: 0; color: #ffb9aa; }
 
