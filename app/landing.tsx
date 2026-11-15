@@ -67,14 +67,14 @@ export default function Landing() {
       </section>
       <section id="episodes" className="library" aria-labelledby="library-title">
         <div className="section-head"><div><p className="eyebrow">THE EPISODE LIBRARY</p><h2 id="library-title">Abhimanyu &amp;<br />the Chakravyuh</h2></div><p>Seven chapters from the Drona Parva, from Abhimanyu’s charge to Ashwatthama’s Narayanastra.</p></div>
-        <div className="cards">{episodes.slice(0, -1).map((item, i) => <article key={item.id}>
+        <div className="cards">{episodes.slice(0, -1).map((item, i) => <article key={item.id} id={item.id}>
           <button className="cover" onClick={() => openEpisode(i)} aria-label={`Watch Part ${i + 1}: ${item.title}`}>
             <img src={`/assets/${item.id}.jpg`} alt="" width="1080" height="1920" loading="lazy" /><span aria-hidden="true">▶</span>
           </button>
           <div className="card-copy"><p className="meta">PART {item.number} <span>{item.duration}</span></p><h3>{item.title}</h3><p>{item.text}</p></div>
         </article>)}</div>
       </section>
-      <section className="library festival" aria-labelledby="festival-title">
+      <section id={episodes[episodes.length - 1].id} className="library festival" aria-labelledby="festival-title">
         <button className="cover" onClick={() => openEpisode(episodes.length - 1)} aria-label="Watch The First Arghya">
           <img src="/assets/chhath.jpg" alt="" width="1080" height="1920" loading="lazy" /><span aria-hidden="true">▶</span>
         </button>
